@@ -1,3 +1,6 @@
+if(isPackage(script_delayedSuicide))
+    error("ERROR: Script_AntiSuicide - Incompatible add-on is enabled! script_delayedSuicide");
+
 $Server::antiSuicide = 1; //Enable/disable script
 $Server::antiSuicide::time = 10; //In seconds
 package script_antiSuicide
@@ -13,7 +16,7 @@ package script_antiSuicide
     
     function Armor::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 	{
-	    if($Server::antiSuicide && isObject(%client.minigame))
+	    if($Server::antiSuicide && isObject(%obj.client.minigame))
 		    %obj.suicidePrevention();
 		Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
 	}
