@@ -26,3 +26,18 @@ function Player::suicidePrevention(%this)
 		cancel(%this.suicidePrevention);
     %this.suicidePrevention = %this.schedule($Server::antiSuicide::time*1000,suicidePrevention);
 }
+
+function serverCmdAntiSuicide(%client,%a)
+{
+    if(!%client.isAdmin)
+        return;
+    if(%a $= "" && %b $= "")
+    {
+        messageClient(%client,'',"\c6Type \c3/antiSuicide A");
+        messageClient(%client,'',"\c3A \c6can be replaced with \c3toggle\c6 or a \c3number\c6 which represents seconds");
+    }
+    else if(%a $= "toggle")
+        messageClient(%client,'',"\c6AntiSuicide script is now\c3 " @ (($Server::antiSuicide = !$Server::antiSuicide) ? "enabled" : "disabled"));
+    else if(%a > 0)
+        messageClient(%client,'',"\c6AntiSuicide time is now\c3 " @ ($Server::antiSuicide::time = %a));
+}
