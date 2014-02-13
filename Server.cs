@@ -5,7 +5,7 @@ package script_antiSuicide
     function serverCmdSuicide(%client)
     {
         if(isObject(%pl = %client.player))
-            if(isEventPending(%pl.suicidePrevention) && $Server::antiSuicide)
+            if(isEventPending(%pl.suicidePrevention) && $Server::antiSuicide && isObject(%client.minigame))
                 return;
             else
                 parent::serverCmdSuicide(%client);
@@ -13,7 +13,7 @@ package script_antiSuicide
     
     function Armor::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 	{
-	    if($Server::antiSuicide)
+	    if($Server::antiSuicide && isObject(%client.minigame))
 		    %obj.suicidePrevention();
 		Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
 	}
